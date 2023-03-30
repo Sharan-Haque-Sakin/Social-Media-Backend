@@ -10,7 +10,7 @@ const { createUser, loginUser } = require("../Controllers/userControllers");
 const {
   addUserValidation,
   validationHandler,
-} = require("../MIddlewares/userValidation");
+} = require("../Middlewares/userValidation");
 
 // User SignUp
 
