@@ -29,11 +29,7 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://shs-socialmedia.onrender.com/"],
-  })
-);
+app.use(cors());
 app.use(cookieParser());
 
 app.use("/user", Routes);
