@@ -11,6 +11,7 @@ const {
   addUserValidation,
   validationHandler,
 } = require("../Middlewares/userValidation");
+const { handlePosts } = require("../Controllers/PostsController");
 
 // User SignUp
 
@@ -25,5 +26,5 @@ Router.post(
 // User Login
 
 Router.post("/login", loginUser);
-
+Router.post("/post", handlePosts);
 module.exports = Router;
