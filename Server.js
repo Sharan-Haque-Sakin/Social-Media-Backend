@@ -1,6 +1,6 @@
 // External Imports
 const path = require("path");
-const config = require("./config");
+// const config = require("./config");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -18,23 +18,12 @@ const UserIn = require("./Routes/Auth");
 require("dotenv").config();
 
 mongoose.set("strictQuery", true);
-config();
+mongoose
+  .connect(process.env.MONGODB)
+  .then(() => console.log("DB connected!"))
+  .catch((err) => console.log(err));
 app.use("/user", Routes);
-app.get("/getname", async (req, res) => {
-  try {
-    const decoded = jwt.verify(req.cookies.authcookie, process.env.secret);
-    const { userName, userId } = decoded;
-    res.status(200).json({
-      userName: userName,
-      userId: userId,
-    });
-  } catch (error) {
-    console.log(error);
-    res.json({
-      errors: error,
-    });
-  }
-});
+
 // mongoose
 //   .connect(process.env.MONGODB)
 //   .then(() => {
@@ -52,9 +41,7 @@ app.use(cookieParser());
 
 app.use("/user/auth", UserIn);
 app.use("/posts/", PostRoutes);
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./Client/build/index.html"));
-});
+
 // Port
 
 const PORT = process.env.PORT || 3000;
