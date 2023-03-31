@@ -22,7 +22,7 @@ async function getPostRoute(req, res) {
   }
 }
 
-function handlePosts(req, res) {
+async function handlePosts(req, res) {
   // let success = false;
 
   // decode
@@ -30,25 +30,26 @@ function handlePosts(req, res) {
   const decoded = jwt.verify(req.cookies.authcookie, process.env.secret);
   const { userName, userId } = decoded;
 
-  const Post = new PostModel({
-    content: req.body.content,
-    user: userId,
-  });
-  Post.save();
+  try {
+    const Post = await new PostModel({
+      content: req.body.content,
+      user: userId,
+    });
+    await Post.save();
 
-  // res.send("Post successful!");
-  res.status(200).json({
-    msg: "Post Successful! ",
-    success: true,
-  });
-  // } catch (err) {
-  // console.log(err);
-  //   res.status(500).json({
-  //     msg: "error",
+    // res.send("Post successful!");
+    res.status(200).json({
+      msg: "Post Successful! ",
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      msg: "error",
 
-  //     success: false,
-  //   });
-  // }
+      success: false,
+    });
+  }
 }
 
 module.exports = { handlePosts, getPostRoute };
