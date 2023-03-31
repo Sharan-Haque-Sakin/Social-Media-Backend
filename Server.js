@@ -14,7 +14,7 @@ const jwt = require("jsonwebtoken");
 const PostRoutes = require("./Routes/Posts");
 const Routes = require("./Routes/Users");
 const UserIn = require("./Routes/Auth");
-
+const getName = require("./Routes/getName");
 require("dotenv").config();
 
 mongoose.set("strictQuery", true);
@@ -39,6 +39,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
+app.use("/getname", getName);
 app.use("/user/auth", UserIn);
 app.use("/posts/", PostRoutes);
 

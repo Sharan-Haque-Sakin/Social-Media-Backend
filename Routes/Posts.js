@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 Routes.get("/", getPostRoute);
 
-Routes.get("/getname", (req, res) => {
+Routes.get("/getname", (req, res, err) => {
   const decoded = jwt.verify(req.cookies.authcookie, process.env.secret);
   const { userName, userId } = decoded;
   res.status(200).json({
