@@ -19,21 +19,6 @@ require("dotenv").config();
 
 mongoose.set("strictQuery", true);
 config();
-// mongoose
-//   .connect(process.env.MONGODB)
-//   .then(() => {
-//     console.log("MongoDb connected");
-//   })
-//   .catch((err) => console.log(err));
-
-// Parsers and Middlewares!
-app.use(express.static(path.join(__dirname, "./Client/build")));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(express.json());
-app.use(cors());
-app.use(cookieParser());
-
 app.use("/user", Routes);
 app.get("/getname", async (req, res) => {
   try {
@@ -50,6 +35,21 @@ app.get("/getname", async (req, res) => {
     });
   }
 });
+// mongoose
+//   .connect(process.env.MONGODB)
+//   .then(() => {
+//     console.log("MongoDb connected");
+//   })
+//   .catch((err) => console.log(err));
+
+// Parsers and Middlewares!
+app.use(express.static(path.join(__dirname, "./Client/build")));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
+
 app.use("/user/auth", UserIn);
 app.use("/posts/", PostRoutes);
 app.get("*", function (req, res) {
