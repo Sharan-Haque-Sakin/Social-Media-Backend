@@ -32,6 +32,12 @@ app.use("/user", Routes);
 //   .catch((err) => console.log(err));
 
 // Parsers and Middlewares!
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 app.use(express.static(path.join(__dirname, "./Client/build")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
